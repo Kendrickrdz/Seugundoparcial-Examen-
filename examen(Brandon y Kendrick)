@@ -1,0 +1,63 @@
+int botonrojo = 2;
+int ledrojo =3;
+int ledverde =4;
+int ledazul =5;
+int botonverde =6;
+int botonazul =7;
+int estado;
+int estador;
+int estadov;
+int estadoa;
+int parpadeo=500;
+int botones = botonrojo+botonverde+botonazul;
+void setup()
+{
+ Serial.begin(9600);
+ pinMode(botonrojo,INPUT_PULLUP);
+ pinMode(botonverde, INPUT_PULLUP);
+ pinMode(botonazul, INPUT_PULLUP);
+ pinMode(ledrojo, OUTPUT);
+ pinMode(ledverde, OUTPUT);
+ pinMode(ledazul, OUTPUT);
+}
+
+void loop()
+{
+  if (estador==1 && estadov==1 && estadoa == 1){
+    digitalWrite(ledrojo,HIGH);
+    digitalWrite(ledverde,HIGH);
+    digitalWrite(ledazul,HIGH);
+    delay(1000);
+    digitalWrite(ledrojo,LOW);
+    digitalWrite(ledverde,LOW);
+    digitalWrite(ledazul,LOW);
+    delay(1000);
+   }
+  
+  estador = digitalRead(botonrojo);
+  if(estador == 0 && estadov == 1 && estadoa == 1){
+    digitalWrite(ledrojo, HIGH);
+    delay(parpadeo);
+    digitalWrite(ledrojo, LOW);
+    delay(parpadeo);
+  }
+  
+  estadov = digitalRead(botonverde);
+  if(estador == 1 && estadov == 0 && estadoa == 1){
+    digitalWrite(ledverde, HIGH);
+    delay(parpadeo);
+    digitalWrite(ledverde, LOW);
+    delay(parpadeo);
+  }
+   estadoa = digitalRead(botonazul);
+  if(estador == 1 && estadov == 1 && estadoa == 0){
+    digitalWrite(ledazul, HIGH);
+    delay(parpadeo);
+    digitalWrite(ledazul, LOW);
+    delay(parpadeo);
+  }
+ 
+    
+    
+  Serial.println(estador);
+}
